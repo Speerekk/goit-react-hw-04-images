@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import Searchbar from './Searchbar/Searchbar';
 import ImageGallery from './ImageGallery/ImageGallery';
@@ -17,34 +16,11 @@ const App = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [hasMore, setHasMore] = useState(true);
 
-  useEffect(() => {
+  const fetchImages = useCallback(() => {
     if (searchQuery.trim() === '') {
       return;
     }
 
-    fetchImages();
-  }, [searchQuery]);
-
-  const handleSearchSubmit = query => {
-    setSearchQuery(query);
-    setPage(1);
-    setImages([]);
-    setHasMore(true);
-  };
-
-  const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
-  };
-
-  const handleOpenModal = image => {
-    setSelectedImage(image);
-  };
-
-  const handleCloseModal = () => {
-    setSelectedImage(null);
-  };
-
-  const fetchImages = () => {
     setIsLoading(true);
 
     axios
@@ -64,6 +40,33 @@ const App = () => {
       .finally(() => {
         setIsLoading(false);
       });
+  }, [searchQuery, page]);
+
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      return;
+    }
+
+    setPage(1);
+    setImages([]);
+    setHasMore(true);
+    fetchImages();
+  }, [searchQuery, fetchImages]);
+
+  const handleSearchSubmit = query => {
+    setSearchQuery(query);
+  };
+
+  const handleLoadMore = () => {
+    setPage(prevPage => prevPage + 1);
+  };
+
+  const handleOpenModal = imageURL => {
+    setSelectedImage(imageURL);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
   };
 
   return (
@@ -72,10 +75,10 @@ const App = () => {
       {isLoading && <Loader />}
       <ImageGallery images={images} onImageClick={handleOpenModal} />
       {images.length > 0 && !isLoading && hasMore && (
-        <Button onClick={handleLoadMore}>Load more</Button>
+        <Button onClick={handleLoadMore}>Загрузить еще</Button>
       )}
       {selectedImage && (
-        <Modal image={selectedImage} onClose={handleCloseModal} />
+        <Modal imageURL={selectedImage} onClose={handleCloseModal} />
       )}
     </div>
   );
