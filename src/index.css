@@ -13,3 +13,119 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(109, 96, 193, 0.667);
+  padding-bottom: 20px;
+  padding-top: 10px;
+}
+
+.form {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 400px;
+  width: 100%;
+}
+
+.input {
+  padding: 10px;
+  width: 100%;
+  margin-right: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: bisque;
+}
+
+.button-load {
+  padding: 10px 20px;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.button-load:hover {
+  background-color: bisque;
+}
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 2px;
+}
+
+.gallery-item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.gallery-item__image {
+  width: 90%;
+  height: 90%;
+  /* object-fit: cover; */
+}
+
+.App {
+  align-items: center;
+}
+
+.load-more-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
+}
+
+/* Додаткові стилі для модального вікна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  max-width: 90%;
+  max-height: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.modal-image {
+  max-width: 100%;
+  max-height: 100%;
+  margin-bottom: 20px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
