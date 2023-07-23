@@ -75,7 +75,7 @@ const App = () => {
       {isLoading && <Loader />}
       <ImageGallery images={images} onImageClick={handleOpenModal} />
       {images.length > 0 && !isLoading && hasMore && (
-        <Button onClick={handleLoadMore}>Загрузить еще</Button>
+        <Button onClick={handleLoadMore}>Load more</Button>
       )}
       {selectedImage && (
         <Modal imageURL={selectedImage} onClose={handleCloseModal} />
