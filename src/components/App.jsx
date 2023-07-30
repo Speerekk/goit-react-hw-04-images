@@ -27,14 +27,15 @@ const App = () => {
       .get(
         `https://pixabay.com/api/?key=${API_KEY}&q=${searchQuery}&page=${page}&per_page=12`
       )
-      .then(response => {
+      .then((response) => {
         if (response.data.hits.length === 0) {
-          setHasMore(false);
+          setHasMore(false); // No more images, set hasMore to false
         } else {
-          setImages(prevImages => [...prevImages, ...response.data.hits]);
+          setImages((prevImages) => [...prevImages, ...response.data.hits]);
+          setHasMore(response.data.hits.length === 12); // Check if this is the last page
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error fetching images:', error);
       })
       .finally(() => {
@@ -50,18 +51,21 @@ const App = () => {
     setPage(1);
     setImages([]);
     setHasMore(true);
-    fetchImages();
-  }, [searchQuery, fetchImages]);
+  }, [searchQuery]);
 
-  const handleSearchSubmit = query => {
+  useEffect(() => {
+    fetchImages(); // Fetch images when the page changes
+  }, [fetchImages]);
+
+  const handleSearchSubmit = (query) => {
     setSearchQuery(query);
   };
 
   const handleLoadMore = () => {
-    setPage(prevPage => prevPage + 1);
+    setPage((prevPage) => prevPage + 1);
   };
 
-  const handleOpenModal = imageURL => {
+  const handleOpenModal = (imageURL) => {
     setSelectedImage(imageURL);
   };
 
